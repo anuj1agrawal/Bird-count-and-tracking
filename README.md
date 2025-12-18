@@ -69,6 +69,7 @@ mkdir -p videos outputs api_outputs models
 
 ```bash
 python main.py
+python test_api.py (if first one is not working)
 ```
 
 Server starts on: `http://localhost:8000`
@@ -119,7 +120,7 @@ python complete_pipeline.py
 
 Edit `complete_pipeline.py` to change:
 - `SOURCE_VIDEO = "videos/your_video.mp4"`
-- `conf_thresh = 0.25`
+- `conf_thresh = 0.30`
 - `fps_sample = None` (or integer for frame sampling)
 
 ---
