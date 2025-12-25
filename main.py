@@ -1,3 +1,9 @@
+# NOTE:
+# The original dataset video is company-restricted and cannot be included in this repository.
+# To run the project successfully, please add your dataset video to the project root directory
+# with the exact filename: "chicken_dataset_video.MP4".
+# If the file is missing or renamed, the pipeline will raise an error during execution
+
 from fastapi import FastAPI, File, UploadFile, Form, HTTPException
 from fastapi.responses import JSONResponse, FileResponse
 from fastapi.middleware.cors import CORSMiddleware
@@ -5,7 +11,7 @@ import tempfile
 import os
 import shutil
 from pathlib import Path
-from complete_pipeline import process_video_complete
+from complete_pipeline_density import process_video_with_density_method
 import json
 
 # Initialize FastAPI app
@@ -102,11 +108,10 @@ async def analyze_video(
         print(f" Config: conf={conf_thresh}, fps_sample={fps_sample}")
         
         # Process video
-        results = process_video_complete(
+        results = process_video_with_density_method(
             source_path=temp_input,
             output_path=temp_output,
-            conf_thresh=conf_thresh,
-            fps_sample=int(fps_sample) if fps_sample else None
+            sample_every_n_frames=int(fps_sample) if fps_sample else 1
         )
         
         # Prepare response
@@ -127,7 +132,7 @@ async def analyze_video(
             }
         }
         
-        print(f"✅ Processing complete: {output_filename}")
+        print(f" Processing complete: {output_filename}")
         
         return JSONResponse(content=response_data)
     
@@ -187,6 +192,7 @@ async def clear_outputs():
 
 if __name__ == "__main__":
     import uvicorn
-    print(" Starting Bird Counting API...")
-    print(" API docs available at: http://localhost:8000/docs")
+    print("Starting Bird Counting API...")
+    print("API docs available at: http://localhost:8000/docs")
+
     uvicorn.run(app, host="0.0.0.0", port=8000)

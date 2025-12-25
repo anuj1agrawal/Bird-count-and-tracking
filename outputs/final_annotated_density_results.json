@@ -27976,7 +27976,7 @@
     "calibration_needed": true
   },
   "artifacts": {
-    "annotated_video": "api_outputs\\annotated_chicken_dataset_video.mp4",
-    "json_output": "api_outputs\\annotated_chicken_dataset_video_results.json"
+    "annotated_video": "outputs/final_annotated_density.mp4",
+    "json_output": "outputs/final_annotated_density_results.json"
   }
 }
